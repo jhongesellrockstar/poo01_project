@@ -1,0 +1,196 @@
+USE master;USE master;
+GO
+
+-- 1. CREAR BASE DE DATOS (Si no existe)
+IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'PetApp')
+BEGIN
+    CREATE DATABASE PetApp;
+END
+GO
+
+USE PetApp;
+GO
+
+-- =============================================
+-- SECCIÓN 0: LIMPIEZA TOTAL (RESET)
+-- =============================================
+-- Borramos en orden inverso para no romper claves foráneas
+DROP VIEW IF EXISTS vw_MascotasAdopcion;
+DROP TABLE IF EXISTS MascotaSalud;
+DROP TABLE IF EXISTS VotosVeterinarias;     -- Depende de Usuarios y Ranking
+DROP TABLE IF EXISTS RankingVeterinarias;   -- Nueva estructura
+DROP TABLE IF EXISTS Usuarios;              -- Nueva estructura
+DROP TABLE IF EXISTS BlacklistVeterinarias; -- Nueva estructura
+DROP TABLE IF EXISTS BlacklistMaltratadores;-- Nueva estructura
+DROP TABLE IF EXISTS ReportesPerdidos;
+DROP TABLE IF EXISTS MascotasAdopcion;
+GO
+
+-- =============================================
+-- SECCIÓN 1: MÓDULO ADOPCIÓN Y PERDIDOS
+-- =============================================
+
+-- Tabla de Mascotas para Adoptar
+CREATE TABLE MascotasAdopcion (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre NVARCHAR(100) NOT NULL,
+    Tipo NVARCHAR(50) NOT NULL,
+    Edad NVARCHAR(50),
+    ColorHex NVARCHAR(20),
+    Raza NVARCHAR(100),
+    Sexo NVARCHAR(20),
+    Tag NVARCHAR(50),
+    Descripcion NVARCHAR(MAX),
+    Energia NVARCHAR(50),
+    ImgPath NVARCHAR(500)
+);
+GO
+
+-- Detalles de Salud (Vacunas, etc.)
+CREATE TABLE MascotaSalud (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    MascotaID INT NOT NULL,
+    EstadoSalud NVARCHAR(100),
+    CONSTRAINT FK_Mascota_Salud FOREIGN KEY (MascotaID) REFERENCES MascotasAdopcion(ID)
+);
+GO
+
+-- Reportes de Animales Perdidos
+CREATE TABLE ReportesPerdidos (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    NombreMascota NVARCHAR(100),
+    Latitud DECIMAL(10, 7) NOT NULL,
+    Longitud DECIMAL(10, 7) NOT NULL,
+    Lugar NVARCHAR(200),
+    FechaReporte NVARCHAR(50),
+    ColorHex NVARCHAR(20) DEFAULT '#EF5350',
+    ImgPath NVARCHAR(500),
+    NombreContacto NVARCHAR(100),
+    CelularContacto NVARCHAR(20),
+    Estado NVARCHAR(20) DEFAULT 'Perdido'
+);
+GO
+
+-- =============================================
+-- SECCIÓN 2: LISTAS NEGRAS (BLACKLISTS)
+-- =============================================
+
+-- Lista Negra: VETERINARIAS (Con Ubicación para el Mapa General)
+CREATE TABLE BlacklistVeterinarias (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    NombreVeterinaria NVARCHAR(100),
+    Motivo NVARCHAR(MAX),
+    EvidenciaPath NVARCHAR(500),
+    Latitud DECIMAL(10, 7),  -- Coordenadas para mapa
+    Longitud DECIMAL(10, 7), -- Coordenadas para mapa
+    FechaReporte DATETIME DEFAULT GETDATE()
+);
+GO
+
+-- Lista Negra: MALTRATADORES (Con Foto y Descripción Detallada)
+CREATE TABLE BlacklistMaltratadores (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    Descripcion NVARCHAR(MAX), -- Aquí se irán acumulando las actualizaciones
+    Latitud DECIMAL(10, 7),
+    Longitud DECIMAL(10, 7),
+    FotoPath NVARCHAR(500),
+    FechaReporte DATETIME DEFAULT GETDATE()
+);
+GO
+
+-- =============================================
+-- SECCIÓN 3: RANKING Y USUARIOS (LOGIN)
+-- =============================================
+
+-- Tabla de Usuarios (Con Rol y Email)
+CREATE TABLE Usuarios (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    Username NVARCHAR(50) UNIQUE NOT NULL,
+    Email NVARCHAR(100),
+    Password NVARCHAR(50) NOT NULL,
+    Rol NVARCHAR(20) DEFAULT 'Usuario' -- Valores: 'Usuario' o 'Dueño'
+);
+GO
+
+-- Tabla de Veterinarias para el Ranking (Con Servicios y Descripción)
+CREATE TABLE RankingVeterinarias (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    Nombre NVARCHAR(100),
+    Direccion NVARCHAR(200),
+    Telefono NVARCHAR(20),
+    Descripcion NVARCHAR(MAX), -- Nuevo: Info del local
+    Servicios NVARCHAR(MAX),   -- Nuevo: Lista de servicios
+    ImgPath NVARCHAR(500),     -- Nuevo: Foto del local
+    PromedioEstrellas FLOAT DEFAULT 0,
+    TotalVotos INT DEFAULT 0
+);
+GO
+
+-- Tabla de Votos (Relación Usuario -> Veterinaria)
+CREATE TABLE VotosVeterinarias (
+    ID INT IDENTITY(1,1) PRIMARY KEY,
+    VetID INT FOREIGN KEY REFERENCES RankingVeterinarias(ID),
+    UserID INT FOREIGN KEY REFERENCES Usuarios(ID),
+    Estrellas INT,
+    Comentario NVARCHAR(MAX)
+);
+GO
+
+-- =============================================
+-- SECCIÓN 4: VISTAS
+-- =============================================
+CREATE VIEW vw_MascotasAdopcion AS
+SELECT 
+    m.ID, m.Nombre, m.Tipo, m.Edad, m.ColorHex, m.Raza, m.Sexo, m.Tag, m.Descripcion, m.Energia, m.ImgPath,
+    STRING_AGG(s.EstadoSalud, ',') AS SaludList
+FROM MascotasAdopcion m
+LEFT JOIN MascotaSalud s ON m.ID = s.MascotaID
+GROUP BY m.ID, m.Nombre, m.Tipo, m.Edad, m.ColorHex, m.Raza, m.Sexo, m.Tag, m.Descripcion, m.Energia, m.ImgPath;
+GO
+
+-- =============================================
+-- SECCIÓN 5: DATOS DE PRUEBA (SEED DATA)
+-- =============================================
+
+-- 1. ADOPCIÓN (Tus datos)
+SET IDENTITY_INSERT MascotasAdopcion ON;
+INSERT INTO MascotasAdopcion (ID, Nombre, Tipo, Edad, ColorHex, Raza, Sexo, Tag, Descripcion, Energia, ImgPath) VALUES 
+(1, 'Rocco', 'Perro', '3 años', '#181818', 'Rottweiler Mix', 'Macho', 'GUARDIÁN', 'Un grandulón de corazón noble.', 'Media ⚖️', NULL),
+(2, 'Dobby', 'Perro', '1 año', '#D7CCC8', 'Mestizo', 'Macho', 'DIVERTIDO', 'Dobby es pura curiosidad.', 'Alta ⚡', NULL),
+(3, 'Garfield', 'Gato', '4 años', '#FF9800', 'Tabby Naranja', 'Macho', 'CARIÑOSO', 'Le encanta la comida.', 'Baja 💤', NULL);
+SET IDENTITY_INSERT MascotasAdopcion OFF;
+
+-- Salud
+INSERT INTO MascotaSalud (MascotaID, EstadoSalud) VALUES (1, 'Vacunado'), (2, 'Esterilizado'), (3, 'Sano');
+
+-- 2. USUARIOS DE PRUEBA (Para probar Login)
+-- Usuario 1: Rol NORMAL (Puede votar)
+INSERT INTO Usuarios (Username, Email, Password, Rol) 
+VALUES ('usuario', 'user@gmail.com', '1234', 'Usuario');
+
+-- Usuario 2: Rol DUEÑO (Puede registrar locales)
+INSERT INTO Usuarios (Username, Email, Password, Rol) 
+VALUES ('admin', 'admin@vet.com', '1234', 'Dueño');
+
+-- 3. RANKING VETS (Ejemplo inicial con descripción)
+INSERT INTO RankingVeterinarias (Nombre, Direccion, Telefono, Descripcion, Servicios, PromedioEstrellas, TotalVotos)
+VALUES ('Vet San Francisco', 'Av. Arequipa 500', '01-222-333', 
+        'Clínica especializada en animales exóticos y urgencias 24h.', 
+        'Rayos X, Cirugía, Baño, Hospedaje', 5.0, 1);
+
+-- 4. LISTA NEGRA (Ejemplos con coordenadas en Lima)
+INSERT INTO BlacklistVeterinarias (NombreVeterinaria, Motivo, Latitud, Longitud)
+VALUES ('Veterinaria El Carnicero', 'Pésima praxis, operaron sin anestesia.', -12.055, -77.045);
+
+INSERT INTO BlacklistMaltratadores (Descripcion, Latitud, Longitud)
+VALUES ('Sujeto arroja gatos al techo de los vecinos. Vestía polo rojo.', -12.060, -77.030);
+
+GO
+
+-- =============================================
+-- VERIFICACIÓN FINAL
+-- =============================================
+SELECT 'Usuarios' AS Tabla, * FROM Usuarios;
+SELECT 'Ranking' AS Tabla, * FROM RankingVeterinarias;
+SELECT 'Blacklist Vets' AS Tabla, * FROM BlacklistVeterinarias;
+SELECT 'Blacklist Maltrato' AS Tabla, * FROM BlacklistMaltratadores;

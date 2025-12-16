@@ -1,2 +1,13 @@
-\chapter{Materiales y métodos}
+\chapter{Materiales y m\'etodos}\label{chap:metodologia}
 
+\section{Recursos de software}
+Se emple\'o Python 3.11 con las bibliotecas \texttt{tkinter} para la interfaz, \texttt{Pillow} para manejo de im\'agenes y \texttt{tkintermapview} para mostrar ubicaciones. El prototipo original usa \texttt{pyodbc} contra SQL Server (archivo \texttt{main.py}); en este informe se documenta un segundo script con \texttt{sqlite3} que reside en la carpeta \texttt{Code} y genera un archivo local \texttt{patitas.db} para facilitar pruebas sin red.
+
+\section{Dise\~no de base de datos}
+La base incluye las tablas \texttt{Usuarios}, \texttt{BlacklistMaltratadores}, \texttt{BlacklistVeterinarias}, \texttt{RankingVeterinarias} y \texttt{VotosVeterinarias}. Cada entidad incorpora campos de trazabilidad (fechas y referencias) y permite c\'alculos de promedios de estrellas. Se inicializan datos semilla con casos ficticios en Callao y Lima para validar la navegaci\'on.
+
+\section{Arquitectura y modularidad}
+El c\'odigo se organiza en clases: la clase principal extiende \texttt{tk.Tk}, gestiona el estado de sesi\'on y delega en funciones espec\'ificas para men\'us, formularios y consultas. Se implementaron funciones reutilizables para crear barras de navegaci\'on, lienzos con desplazamiento y manejo de im\'agenes. El nuevo script desacopla la configuraci\'on de conexi\'on mediante la funci\'on \texttt{get\_connection()}, que garantiza la creaci\'on de tablas y el cierre seguro de la conexi\'on a SQLite.
+
+\section{Flujo de trabajo}
+El flujo sigue cuatro pasos: (1) el usuario se registra o inicia sesi\'on; (2) se listan tarjetas de reportes de maltrato o veterinarias con filtros; (3) se presentan mapas y datos de contacto; y (4) se permite votar o registrar nuevas entradas seg\'un el rol. Las interacciones se validan con mensajes amigables y se recalculan promedios en cada inserci\'on de voto.

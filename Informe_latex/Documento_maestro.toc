@@ -1,13 +1,23 @@
 \babel@toc {spanish}{}\relax 
 \babel@toc {english}{}\relax 
 \babel@toc {spanish}{}\relax 
-\contentsline {chapter}{\numberline {1}Introducción}{1}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Motivación}{1}{section.1.1}%
+\contentsline {chapter}{\numberline {1}Introducci\'on}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Motivaci\'on}{1}{section.1.1}%
 \contentsline {section}{\numberline {1.2}Propuesta y objetivos}{1}{section.1.2}%
 \contentsline {section}{\numberline {1.3}Estructura del documento}{1}{section.1.3}%
-\contentsline {chapter}{\numberline {2}Estado del Arte}{3}{chapter.2}%
-\contentsline {chapter}{\numberline {3}Materiales y métodos}{5}{chapter.3}%
+\contentsline {chapter}{\numberline {2}Estado del arte y contexto regional}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Normativa y planes nacionales}{3}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Situaci\'on en Lima y Callao}{3}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Referentes tecnol\'ogicos}{3}{section.2.3}%
+\contentsline {chapter}{\numberline {3}Materiales y m\'etodos}{5}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Recursos de software}{5}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Dise\~no de base de datos}{5}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Arquitectura y modularidad}{5}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Flujo de trabajo}{6}{section.3.4}%
 \contentsline {chapter}{\numberline {4}Resultados}{7}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Prototipo original}{7}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Script alternativo con SQLite}{7}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Hallazgos y validaci\'on}{7}{section.4.3}%
 \contentsline {chapter}{\numberline {5}Conclusiones y trabajos futuros}{9}{chapter.5}%
 \contentsline {chapter}{Bibliografía y referencias}{10}{chapter.5}%
 \contentsline {chapter}{\numberline {A}Ejemplos en \LaTeX }{11}{appendix.Alph1}%

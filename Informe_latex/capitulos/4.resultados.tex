@@ -1,2 +1,10 @@
-\chapter{Resultados}
+\chapter{Resultados}\label{chap:resultados}
 
+\section{Prototipo original}
+El archivo \texttt{main.py} conserva el dise\~no de interfaz con paleta de colores consistentes, men\'u principal y m\'odulos de login, listas negras y ranking. Las consultas dependen de SQL Server y actualmente requieren ajustes de cadena de conexi\'on para funcionar fuera del entorno acad\'emico.
+
+\section{Script alternativo con SQLite}
+Se implement\'o \texttt{Code/patitas\_sqlite.py} como clon funcional que crea y puebla autom\'aticamente la base \texttt{patitas.db}. El script mantiene los flujos de inicio de sesi\'on, registro de usuarios, altas en listas negras y calificaci\'on de veterinarias. La funci\'on \texttt{seed\_data()} agrega dos entradas de prueba (Callao y Lima) para validar el mapa y los promedios.
+
+\section{Hallazgos y validaci\'on}
+La modularidad permiti\'o reutilizar componentes de interfaz y aislar la l\'ogica de base de datos. El cambio a SQLite reduce fricci\'on de despliegue y facilita demostraciones sin credenciales corporativas. Pendientes futuros incluyen incorporar formularios completos de adopci\'on y p\'erdida, as\'i como automatizar la carga de evidencias (fotos y documentos) por distrito.

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.30)  16 DEC 2025 16:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.30)  17 DEC 2025 20:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1362,7 +1362,7 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 \openout2 = `otros/portada.aux'.
 
  (otros/portada.tex
-<imagenes/logo_informatica_s.png, id=117, 371.3875pt x 177.66376pt>
+<imagenes/logo_informatica_s.png, id=141, 371.3875pt x 177.66376pt>
 File: imagenes/logo_informatica_s.png Graphic file (type png)
 <use imagenes/logo_informatica_s.png>
 Package pdftex.def Info: imagenes/logo_informatica_s.png  used on input line 3.
@@ -1472,33 +1472,23 @@ LaTeX Info: Redefining \% on input line 3.
 
  (capitulos/1.introduccion.tex
 Cap\'{\i }tulo 1.
-! Undefined control sequence.
-l.4 ...ensidad de perros y gatos callejeros \citep
-                                                  {ley30407,serfor2023diagno...
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+)
+Underfull \vbox (badness 7273) has occurred while \output is active []
 
-) [1
+ [1
 
 
 ]
+LaTeX Info: Redefining \sptext on input line 129.
+LaTeX Info: Redefining \. on input line 129.
+LaTeX Info: Redefining \% on input line 129.
+Package babel Info: 'spanish' activates 'spanish' shorthands.
+(babel)             Reported on input line 129.
+
+[2]
 \openout2 = `capitulos/2.estado_del_arte.aux'.
 
  (capitulos/2.estado_del_arte.tex
-LaTeX Info: Redefining \sptext on input line 1.
-LaTeX Info: Redefining \. on input line 1.
-LaTeX Info: Redefining \% on input line 1.
-Package babel Info: 'spanish' activates 'spanish' shorthands.
-(babel)             Reported on input line 1.
- [2
-
-
-
-
-]
 Cap\'{\i }tulo 2.
 ! Undefined control sequence.
 l.4 ... promoviendo la tenencia responsable \citep
@@ -1545,7 +1535,12 @@ misspelled it (e.g., `\hobx'), type `I' and the correct
 spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
-) [3]
+) [3
+
+
+
+
+]
 \openout2 = `capitulos/3.materiales_y_metodos.aux'.
 
  (capitulos/3.materiales_y_metodos.tex
@@ -1559,35 +1554,18 @@ LaTeX Info: Redefining \% on input line 1.
 
 ]
 Cap\'{\i }tulo 3.
-
-Overfull \hbox (6.93793pt too wide) in paragraph at lines 7--8
-[]\T1/cmr/m/n/12 La ba-se in-clu-ye las ta-blas \T1/cmtt/m/n/12 Usuarios\T1/cmr
-/m/n/12 , \T1/cmtt/m/n/12 BlacklistMaltratadores\T1/cmr/m/n/12 , \T1/cmtt/m/n/1
-2 BlacklistVeterinarias\T1/cmr/m/n/12 ,
- []
-
-)
-Underfull \vbox (badness 4608) has occurred while \output is active []
-
- [5]
+[5]
+LaTeX Info: Redefining \sptext on input line 24.
+LaTeX Info: Redefining \. on input line 24.
+LaTeX Info: Redefining \% on input line 24.
+ [6])
 LaTeX Info: Redefining \sptext on input line 131.
 LaTeX Info: Redefining \. on input line 131.
 LaTeX Info: Redefining \% on input line 131.
-
-[6]
+ [7]
 \openout2 = `capitulos/4.resultados.aux'.
 
  (capitulos/4.resultados.tex
-Cap\'{\i }tulo 4.
-) [7
-
-
-
-
-]
-\openout2 = `capitulos/5.conclusiones.aux'.
-
- (capitulos/5.conclusiones.tex
 LaTeX Info: Redefining \sptext on input line 1.
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
@@ -1597,15 +1575,29 @@ LaTeX Info: Redefining \% on input line 1.
 
 
 ]
-Cap\'{\i }tulo 5.
+Cap\'{\i }tulo 4.
 ) [9]
+\openout2 = `capitulos/5.conclusiones.aux'.
+
+ (capitulos/5.conclusiones.tex
+LaTeX Info: Redefining \sptext on input line 1.
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+ [10
+
+
+
+
+]
+Cap\'{\i }tulo 5.
+) [11]
 
 LaTeX Warning: Empty bibliography on input line 140.
 
 LaTeX Info: Redefining \sptext on input line 148.
 LaTeX Info: Redefining \. on input line 148.
 LaTeX Info: Redefining \% on input line 148.
-[10
+[12
 
 
 ]
@@ -1614,25 +1606,25 @@ LaTeX Info: Redefining \% on input line 148.
  (apendice_ejemplo.tex
 Ap\'{e}ndice A.
 
-LaTeX Warning: Citation 'aikg' on page 11 undefined on input line 13.
+LaTeX Warning: Citation 'aikg' on page 13 undefined on input line 13.
 
 
-LaTeX Warning: Citation 'chen_2018' on page 11 undefined on input line 15.
+LaTeX Warning: Citation 'chen_2018' on page 13 undefined on input line 15.
 
 
-LaTeX Warning: Citation 'Qin_2020' on page 11 undefined on input line 15.
+LaTeX Warning: Citation 'Qin_2020' on page 13 undefined on input line 15.
 
-[11
+[13
 
 
 ]
 
-LaTeX Warning: Citation 'ji2020survey' on page 12 undefined on input line 19.
+LaTeX Warning: Citation 'ji2020survey' on page 14 undefined on input line 19.
 
 
-LaTeX Warning: Citation 'ji2020survey' on page 12 undefined on input line 23.
+LaTeX Warning: Citation 'ji2020survey' on page 14 undefined on input line 23.
 
-<imagenes/logo_informatica.png, id=287, 737.75626pt x 255.95625pt>
+<imagenes/logo_informatica.png, id=325, 737.75626pt x 255.95625pt>
 File: imagenes/logo_informatica.png Graphic file (type png)
 <use imagenes/logo_informatica.png>
 Package pdftex.def Info: imagenes/logo_informatica.png  used on input line 31.
@@ -1644,17 +1636,17 @@ LaTeX Info: Redefining \sptext on input line 61.
 LaTeX Info: Redefining \. on input line 61.
 LaTeX Info: Redefining \% on input line 61.
 
-[12 <./imagenes/logo_informatica.png>]
+[14 <./imagenes/logo_informatica.png>]
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 61.
 LaTeX Info: Redefining \sptext on input line 97.
 LaTeX Info: Redefining \. on input line 97.
 LaTeX Info: Redefining \% on input line 97.
- [13])
+ [15])
 LaTeX Info: Redefining \sptext on input line 148.
 LaTeX Info: Redefining \. on input line 148.
 LaTeX Info: Redefining \% on input line 148.
- [14] (Documento_maestro.aux
+ [16] (Documento_maestro.aux
 (otros/portada.aux)
 LaTeX Info: Redefining \sptext on input line 19.
 LaTeX Info: Redefining \. on input line 19.
@@ -1677,7 +1669,7 @@ L3 programming layer <2025-11-06>
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `Documento_maestro.out' has not changed.
-(rerunfilecheck)             Checksum: 16D458E3AE2BF2E755E3B209866023E9;4356.
+(rerunfilecheck)             Checksum: 8A83D12172814DD67736FC3D57152C45;5835.
 
 Package biblatex Warning: Please (re)run Biber on the file:
 (biblatex)                Documento_maestro
@@ -1688,10 +1680,10 @@ Package logreq Info: Writing requests to 'Documento_maestro.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 41448 strings out of 467870
- 819576 string characters out of 5418354
- 2031886 words of memory out of 5000000
- 69571 multiletter control sequences out of 15000+600000
+ 41462 strings out of 467870
+ 819736 string characters out of 5418354
+ 2031889 words of memory out of 5000000
+ 69577 multiletter control sequences out of 15000+600000
  652537 words of font info for 102 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,14n,94p,2509b,2507s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1701,10 +1693,10 @@ Here is how much of TeX's memory you used:
 /dpi600\ecbx1440.pk> <C:\Users\jhonv\AppData\Local\MiKTeX\fonts/pk/ljfour/jknap
 pen/ec/dpi600\ecrm0800.pk> <C:\Users\jhonv\AppData\Local\MiKTeX\fonts/pk/ljfour
 /jknappen/ec/dpi600\ecbx2074.pk> <C:\Users\jhonv\AppData\Local\MiKTeX\fonts/pk/
-ljfour/jknappen/ec/dpi600\tcrm1200.pk> <C:\Users\jhonv\AppData\Local\MiKTeX\fon
-ts/pk/ljfour/jknappen/ec/dpi600\ectt1200.pk> <C:\Users\jhonv\AppData\Local\MiKT
-eX\fonts/pk/ljfour/jknappen/ec/dpi600\eccc1200.pk> <C:\Users\jhonv\AppData\Loca
-l\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0800.pk> <C:\Users\jhonv\AppDat
+ljfour/jknappen/ec/dpi600\ectt1200.pk> <C:\Users\jhonv\AppData\Local\MiKTeX\fon
+ts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk> <C:\Users\jhonv\AppData\Local\MiKT
+eX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0800.pk> <C:\Users\jhonv\AppData\Loca
+l\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\eccc1200.pk> <C:\Users\jhonv\AppDat
 a\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk> <C:\Users\jhonv\
 AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\
 jhonv\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1200.pk> <C:\
@@ -1724,9 +1716,9 @@ sers/jhonv/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pf
 b><C:/Users/jhonv/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/
 cmss8.pfb><C:/Users/jhonv/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsf
 onts/cm/cmsy10.pfb>
-Output written on Documento_maestro.pdf (28 pages, 343796 bytes).
+Output written on Documento_maestro.pdf (30 pages, 359284 bytes).
 PDF statistics:
- 939 PDF objects out of 1000 (max. 8388607)
- 98 named destinations out of 1000 (max. 500000)
- 247 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 994 PDF objects out of 1000 (max. 8388607)
+ 106 named destinations out of 1000 (max. 500000)
+ 295 words of extra memory for PDF output out of 10000 (max. 10000000)
 

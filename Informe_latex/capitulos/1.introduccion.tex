@@ -1,10 +1,14 @@
 \chapter{Introducci\'on}\label{chap:introduccion}
 
-\section{Motivaci\'on}
-Lima Metropolitana y el Callao concentran la mayor poblaci\'on urbana del pa\'is y registran problemas crecientes de bienestar animal, incluyendo abandono, maltrato y brotes de zoonosis asociados a la densidad de perros y gatos callejeros \citep{ley30407,serfor2023diagnostico}. Los estudiantes de Ingenier\'ia de Sistemas (c\'odigos 1234, 1235, 1236 y 1237) asumimos el reto de proponer una herramienta tecnol\'ogica que apoye la denuncia ciudadana y la toma de decisiones sobre atenci\'on veterinaria.
+\section{Problema y prop\'osito}
+En Lima Metropolitana y el Callao los reportes de adopci\'on, alertas de mascotas perdidas y denuncias de maltrato suelen fragmentarse en canales cerrados y publicaciones ef\'imeras. Esa dispersi\'on genera un ``laberinto'' de desinformaci\'on, repite esfuerzos y expone datos personales. La falta de un punto central para consolidar, filtrar y geolocalizar eventos incrementa el riesgo de estafas y retrasa la respuesta comunitaria.
 
-\section{Propuesta y objetivos}
-El proyecto \textit{Patitas Seguras} consolida tres l\'ineas de acci\'on: (1) una lista negra colaborativa para maltratadores y veterinarias sancionadas, (2) un tablero de adopciones y mascotas perdidas, y (3) un ranking comunitario de servicios veterinarios para elevar la transparencia. El presente informe describe el dise\~no modular del software y presenta un segundo despliegue basado en SQLite que elimina la dependencia de un servidor corporativo, manteniendo la funcionalidad prevista en el archivo \texttt{main.py}. Los objetivos espec\'ificos son documentar la arquitectura, las decisiones de dise\~no y las oportunidades de mejora en futuras iteraciones.
+``Patitas Seguras'' se concibi\'o como una aplicaci\'on de escritorio que reduce esa fricci\'on: concentra reportes, permite ubicarlos en mapa y mantiene un historial verificable. El proyecto busca transformar procesos que hoy demoran d\'ias en acciones de minutos mediante un flujo \emph{end-to-end} que une registro, consulta y localizaci\'on geogr\'afica.
+
+\section{Objetivos generales y alcance}
+El sistema se plantea como una herramienta integral de gesti\'on y cuidado animal, con m\'odulos especializados para adopci\'on, reportes de mascotas perdidas o encontradas, listas negras de maltrato y ranking comunitario de veterinarias. Opera sobre una pila tecnol\'ogica ligera (Python, Tkinter, Pillow, TkinterMapView y SQLite) para priorizar viabilidad en entornos sin conectividad permanente.
+
+El alcance funcional se agrupa en tres l\'ineas: (a) gesti\'on de informaci\'on con operaciones CRUD, (b) geolocalizaci\'on y representaci\'on cartogr\'afica de eventos, y (c) mecanismos comunitarios de prevenci\'on mediante reputaci\'on y alertas. El objetivo operativo es ofrecer cat\'alogos filtrables, mapas interactivos y persistencia local con criterios claros de ordenamiento y trazabilidad.
 
 \section{Estructura del documento}
-El documento se organiza en cinco cap\'itulos: el Cap.\ref{chap:introduccion} expone la motivaci\'on y alcance; el Cap.\ref{chap:estadoarte} sintetiza la literatura y normativa relevante; el Cap.\ref{chap:metodologia} detalla los materiales, m\'odulos y base de datos; el Cap.\ref{chap:resultados} muestra resultados preliminares y capturas funcionales; finalmente, el Cap.\ref{chap:conclusiones} presenta conclusiones y trabajo futuro.
+El documento se organiza en cinco cap\'itulos: el Cap.\ref{chap:introduccion} expone el contexto y alcance; el Cap.\ref{chap:estadoarte} sintetiza la literatura y normativa relevante; el Cap.\ref{chap:metodologia} detalla arquitectura, modelo de datos, m\'odulos y criterios de calidad; el Cap.\ref{chap:resultados} resume implementaciones y hallazgos; finalmente, el Cap.\ref{chap:conclusiones} plantea conclusiones y una hoja de ruta futura.

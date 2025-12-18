@@ -1,0 +1,52 @@
+09) SEGURIDAD, INTEGRIDAD Y GESTIÓN DE ERRORES (CALIDAD DEL SOFTWARE)
+
+9.1. Principio general
+En un sistema comunitario con reportes sensibles, la calidad no es opcional: es un requisito para evitar daño (falsos reportes, pérdida de información, corrupción de base de datos). Por ello, recomiendo tratar estas tres capas como obligatorias:
+- Validación de entradas.
+- Integridad de persistencia.
+- Manejo de excepciones y logging.
+
+9.2. Validación de entradas (UI → Dominio)
+Controles mínimos por formulario:
+- Campos obligatorios: evitar insert con strings vacíos.
+- Tipos: estrellas debe ser entero dentro de [1..5].
+- Coordenadas: latitud ∈ [-90, 90], longitud ∈ [-180, 180].
+- Rutas de archivo: verificar existencia de imagen antes de guardar ruta.
+- Teléfono: patrón numérico y longitud mínima.
+
+9.3. Integridad de base de datos (Dominio → Datos)
+Buenas prácticas para SQLite:
+- Usar sentencias parametrizadas (placeholders ?) para evitar inyección y errores por comillas.
+- Envolver operaciones críticas en transacciones (BEGIN/COMMIT/ROLLBACK) si se hacen múltiples cambios.
+- Cerrar conexión en un handler de salida (on_close) para garantizar commit y evitar corrupción del archivo.
+
+9.4. Manejo de errores (try/except)
+Errores típicos y cómo mitigarlos:
+- Error al cargar imagen: usar imagen fallback y registrar el error.
+- Error al abrir data.db: notificar al usuario y ofrecer ruta alternativa.
+- Error de escritura: rollback y mensaje claro (no críptico).
+- Error de mapa: fallback a ingreso manual de coordenadas (opcional).
+
+9.5. Privacidad y ética (especialmente blacklist)
+Riesgos:
+- Difamación o acusaciones falsas.
+- Exposición de datos personales y geolocalización exacta.
+- Uso malicioso del sistema (spam de denuncias).
+
+Medidas sugeridas:
+- Advertencias legales y políticas de reporte (texto visible).
+- Minimización de datos: mostrar contacto solo a quien realmente lo requiere.
+- Moderación: estado “pendiente” antes de publicación.
+- Auditoría: trazabilidad de acciones.
+
+9.6. Calidad: pruebas y mantenibilidad
+Para sostener evolución del sistema:
+- Pruebas unitarias de funciones de datos (insert/load/update).
+- Pruebas de regresión de filtros (adopción, perdidos/encontrados).
+- Pruebas manuales guiadas (checklist por pantalla).
+- Separar lógica de UI: que el filtrado y la persistencia puedan probarse sin abrir la interfaz.
+
+9.7. Rendimiento
+- Cache de imágenes: evita decodificar la misma foto repetidamente.
+- Paginación en listados grandes: evita renderizar cientos de widgets a la vez.
+- Índices SQLite: mejora SELECT por campos de filtrado.

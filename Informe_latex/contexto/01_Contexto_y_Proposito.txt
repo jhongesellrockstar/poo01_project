@@ -1,0 +1,31 @@
+01) CONTEXTO Y PROPÓSITO DEL PROYECTO
+
+1.1. Problema que resuelve
+En este proyecto abordé una problemática urbana concreta: la gestión comunitaria del bienestar animal en entornos donde la información se dispersa y se pierde con facilidad. En el flujo tradicional, los reportes de adopción, las alertas de mascotas perdidas y las denuncias de maltrato suelen fragmentarse en canales cerrados y publicaciones efímeras (p. ej., mensajes en grupos), generando un “laberinto” de desinformación: se diluye el contexto, se repiten esfuerzos, y se incrementa el riesgo de estafas o exposición de datos personales cuando las personas publican información sensible en espacios no controlados.
+
+El problema no es solo social, también es tecnológico: falta un punto central que permita consolidar reportes, filtrarlos con criterios objetivos, ubicar eventos en un mapa y mantener un historial verificable. Por ello, diseñé “Patitas Seguras” como una aplicación de escritorio que concentra la intención de ayuda en un flujo de acción con baja fricción, eliminando intermediarios y reduciendo el tiempo de respuesta entre un reporte y una intervención efectiva.
+
+1.2. Objetivo general del sistema
+Desarrollé “Patitas Seguras” como un “sistema integral de cuidado y gestión animal”, implementado en una aplicación de escritorio con módulos especializados para:
+- Adopción: catálogo visual y filtros por especie y etapa de vida.
+- Mascotas perdidas/encontradas: reporte con geolocalización y evidencia fotográfica.
+- Blacklist (listas negras): registro de casos de maltrato y veterinarias denunciadas.
+- Ranking de veterinarias: reputación comunitaria mediante votación y comentarios.
+
+El objetivo operativo del sistema es transformar un proceso que suele tardar días en una acción de minutos: registro, consulta y localización geográfica en una misma interfaz, con persistencia de datos y criterios de ordenamiento/filtrado que permitan decisiones rápidas y trazables.
+
+1.3. Alcance funcional
+Mi alcance se centra en tres grandes líneas:
+a) Gestión de información (CRUD): registrar, listar, consultar detalle y eliminar algunos registros bajo condiciones controladas.
+b) Geolocalización y representación: utilizar mapas interactivos reales para marcar coordenadas, visualizar puntos críticos y reducir la ambigüedad de “dónde ocurrió”.
+c) Comunidad y prevención: reputación de establecimientos y alertas comunitarias (listas negras) para prevenir reincidencias o malas prácticas.
+
+1.4. Alcance tecnológico
+Implementé el sistema con una pila tecnológica pragmática y local:
+- Python como motor lógico del sistema (robustez y rapidez de desarrollo).
+- Tkinter como framework de interfaz (GUI nativa, ligera y sin dependencia de navegador).
+- TkinterMapView para mapas dinámicos (marcado por clic, latitud/longitud y navegación).
+- Pillow para imágenes (redimensionado preservando proporción, tarjetas visuales consistentes).
+- SQLite (sqlite3) para persistencia (archivo local data.db, sin requerir infraestructura de servidor).
+
+Este enfoque prioriza viabilidad y replicabilidad: el sistema funciona offline con almacenamiento local, manteniendo la experiencia fluida mediante estructuras en memoria y consultas eficientes.

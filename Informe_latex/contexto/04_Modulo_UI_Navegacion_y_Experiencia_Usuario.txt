@@ -1,0 +1,47 @@
+04) MÓDULO DE INTERFAZ (UI), NAVEGACIÓN Y EXPERIENCIA DE USUARIO (UX)
+
+4.1. Objetivo de la capa UI
+En “Patitas Seguras” traté la interfaz como un componente de ingeniería: no es decoración, es la capa que reduce errores y acelera decisiones. Para ello definí:
+- Identidad visual: paleta de colores coherente y estilos de fuente.
+- Tarjetas visuales: formatos repetibles para mascotas, reportes y veterinarias.
+- Navegación consistente: dashboard + barra superior + retorno a inicio.
+
+4.2. Pantalla inicial (Dashboard)
+La app inicia con una pantalla de bienvenida que integra el logo y ofrece accesos directos a los módulos. El dashboard cumple tres roles:
+- Orientación: el usuario entiende el propósito y el menú de acciones.
+- Enrutamiento: reduce clics para llegar a las funciones clave.
+- Segmentación: cada botón representa una “capacidad” del sistema (adopción, perdidos, blacklist, ranking).
+
+4.3. Navegación superior y transiciones
+Implementé funciones auxiliares para:
+- Limpieza de pantalla (destroy/forget de frames anteriores) al cambiar de módulo.
+- Control de desplazamiento (scroll) en listados extensos con canvas + scrollbar.
+- Persistencia visual: mantener un header o barra con acción de “volver”.
+
+Este enfoque evita que la UI crezca como una secuencia de ventanas sueltas; en su lugar, se mantiene una sola ventana principal con paneles intercambiables, lo que reduce complejidad cognitiva y mejora consistencia de interacción.
+
+4.4. Componentes UI reutilizables (patrón recomendado)
+Para mantener modularidad, identifiqué elementos repetibles:
+- Componente “Tarjeta”: imagen + campos resumen + botones (detalle / acción).
+- Componente “Formulario”: inputs, combobox, checks, y botón de registrar.
+- Componente “Mapa”: vista embebida para marcar coordenadas y mostrar puntos.
+
+En una evolución, separaría estos componentes en clases propias (CardWidget, FormWidget, MapWidget) con parámetros y estilos comunes.
+
+4.5. Manejo de imágenes (Pillow)
+La UI es visual por naturaleza: la foto de una mascota o la evidencia de una denuncia es información operacional. Por ello el procesamiento de imágenes requiere:
+- Redimensionado sin distorsión (manteniendo proporción).
+- Recorte controlado o “letterboxing” (fondo neutro) para uniformidad.
+- Carga eficiente: caché de imágenes para evitar recargas repetidas y parpadeos.
+
+4.6. Retroalimentación (confirmaciones)
+Para reforzar acciones positivas, el sistema genera pantallas de éxito (p. ej., tras enviar solicitud o registrar reporte). Esta confirmación cumple:
+- Confirmación semántica: el usuario sabe que la acción persistió.
+- Reducción de incertidumbre: evita reintentos innecesarios y duplicados.
+- Mejora UX: refuerza confianza en el flujo de trabajo.
+
+4.7. Lineamientos de usabilidad que apliqué
+- Minimizar texto en listados; concentrar detalle en la vista específica.
+- Usar filtros visibles y de respuesta inmediata (sin “buscar” manual).
+- Mantener consistencia: mismos botones/colores para acciones equivalentes.
+- Diseñar para estrés: en reportes de pérdida, el usuario requiere rapidez y claridad.

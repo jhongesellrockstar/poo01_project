@@ -1,0 +1,53 @@
+02) ARQUITECTURA Y COMPONENTES (VISIÓN MODULAR)
+
+2.1. Principio de diseño
+Estructuré el sistema como una aplicación monolítica modular: un solo ejecutable/proyecto, pero con módulos claramente separados por responsabilidad. La meta es que cada módulo sea:
+- Cohesivo: resuelve una sola familia de casos de uso.
+- Acoplado de forma controlada: se comunica con el resto mediante funciones “puente” (p. ej., navegación y acceso a datos).
+- Reutilizable: sus componentes UI (tarjetas, formularios, listados) y su lógica (filtrado, validación, consultas) se puedan extender.
+
+2.2. Macrocomponentes
+A) Presentación (UI / Tkinter)
+- Ventana principal, layout general, navegación (dashboard y barra superior).
+- Pantallas por módulo: adopción, perdidos/encontrados, blacklist, ranking.
+- Controles: botones, frames, canvas/scroll, combobox, inputs, carga de imágenes.
+
+B) Dominio (Lógica de negocio)
+- Filtrado de catálogos (especie, edad, estado “perdido/encontrado”).
+- Reglas de registro: validación mínima de campos, consistencia de coordenadas, manejo de rutas de archivos de evidencia.
+- Ordenamiento de ranking por estrellas y cálculo de promedios.
+
+C) Datos (Persistencia / SQLite + memoria)
+- Inicialización de data.db y creación de tablas si no existen.
+- Lectura inicial (SELECT) para poblar estructuras en memoria (listas de diccionarios).
+- Escritura (INSERT/UPDATE) y operaciones de integridad (commit/cierre).
+- Eliminación de registros específicos en tablas sensibles (p. ej., mascotas_perdidas por id).
+
+2.3. Flujo de interacción global
+1) Inicio
+- El sistema prepara entorno (imports, constantes, paleta visual).
+- Abre/crea la base de datos y ejecuta el esquema si corresponde.
+- Carga datos a memoria para renderizar catálogos sin latencia perceptible.
+
+2) Dashboard
+- Presento accesos directos a los módulos principales.
+- El usuario elige una operación: adopción, reportes, blacklist o ranking.
+
+3) Módulos transaccionales
+- Cada módulo ofrece una vista “listado” (tarjetas) + una vista “detalle” + formularios de registro.
+- En módulos geolocalizados, el formulario integra el mapa para capturar coordenadas por clic.
+
+4) Cierre
+- Aseguro commit y cierre de la conexión para evitar corrupción de data.db.
+- Se liberan recursos UI e imágenes cargadas.
+
+2.4. Ventajas de esta arquitectura
+- Rapidez: UI inmediata por uso de estructuras en memoria para renderizar.
+- Robustez: persistencia local simple, con esquema consistente.
+- Extensibilidad: módulos pueden crecer sin reescribir el núcleo (se agregan pantallas, tablas y funciones insert/load).
+- Bajo costo: sin backend remoto, sin hosting, sin dependencia de red.
+
+2.5. Limitaciones asumidas (diseño deliberado)
+- Persistencia local: el sistema no sincroniza entre múltiples equipos (por ahora).
+- Moderación: listas negras se basan en input de usuarios sin verificación externa (requiere una fase futura de controles).
+- Autenticación: sin control de identidad del denunciante (futuro: roles y trazabilidad).

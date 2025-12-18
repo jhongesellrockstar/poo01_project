@@ -1,0 +1,65 @@
+03) MODELO DE DATOS Y PERSISTENCIA (SQLITE)
+
+3.1. Decisión de persistencia
+Elegí SQLite por ser una base de datos embebida que se integra nativamente con Python (sqlite3) y funciona como un archivo local (data.db). Este enfoque es idóneo cuando:
+- Se requiere persistencia real sin instalar servicios.
+- Se prioriza portabilidad (copiar el archivo .db entre equipos).
+- El volumen de datos es manejable (catálogos comunitarios a escala local).
+
+3.2. Esquema general (tablas principales)
+El sistema define tablas para cubrir las entidades de cada módulo:
+- adopcion: mascotas disponibles para adopción.
+- veterinarias: directorio de clínicas y centros de salud.
+- blacklist_vet: establecimientos denunciados.
+- blacklist_maltrato: denunciados por maltrato animal.
+- mascotas_perdidas: reportes de mascotas perdidas y/o encontradas.
+- votos: votaciones/reseñas asociadas a veterinarias (ranking).
+
+3.3. Estrategia “DB → Memoria”
+Al iniciar, la aplicación ejecuta consultas SELECT * para traer registros desde data.db y convertirlos en estructuras en memoria (listas de diccionarios). El objetivo es renderizar tarjetas y filtros en tiempo real sin depender de consultas continuas a disco.
+
+Ejemplo conceptual:
+- self.db_adopcion = [ {nombre, especie, edad, fotoPath, ...}, ... ]
+- self.db_veterinarias = [ {id, nombre, direccion, telefono, estrellas, ...}, ... ]
+- self.db_perdidos = [ {id, estado, raza, lat, lon, fotoPath, ...}, ... ]
+
+3.4. Estrategia “Memoria → DB” (escritura permanente)
+Cuando el usuario registra información en un formulario, la app:
+1) Valida campos mínimos (p. ej., no vacío, formato).
+2) Inserta el registro en la tabla correspondiente (INSERT INTO ...).
+3) Actualiza estructuras en memoria si es necesario para refrescar la UI.
+4) Confirma cambios mediante commit (o al salir, según implementación).
+
+3.5. Operaciones clave de datos (interfaces mínimas)
+A) Inicialización
+- crear_conexion(): abre el archivo data.db.
+- crear_tablas(): CREATE TABLE IF NOT EXISTS para cada entidad.
+
+B) Carga inicial
+- load_db(): SELECT * FROM tabla; pobla listas Python (self.db_*).
+
+C) Inserción por módulo
+- insert_adopcion(...): alta de mascotas en adopción.
+- insert_veterinaria(...): alta de clínicas.
+- insert_blacklist_maltrato(...): registro de denunciado + evidencia + coordenadas.
+- insert_blacklist_vet(...): registro de veterinaria denunciada + coordenadas.
+- insert_mascota_perdida(...): registro de reporte perdido/encontrado.
+- insert_voto(...): inserta voto y actualiza promedio de estrellas (UPDATE).
+
+D) Eliminación controlada
+- eliminar_mascota_perdida(id): DELETE FROM mascotas_perdidas WHERE id = ?
+(Se recomienda auditar y registrar esta operación para trazabilidad futura.)
+
+E) Cierre seguro
+- cerrar_conexion(): commit + close para evitar corrupción.
+
+3.6. Integridad y consistencia
+Para mantener coherencia del ranking, “votos” debe relacionarse con “veterinarias” (p. ej., VetID). En evolución futura, formalizaría:
+- Llaves primarias autoincrementales (INTEGER PRIMARY KEY).
+- Llaves foráneas (FOREIGN KEY) y ON DELETE/UPDATE.
+- Índices en campos consultados frecuentemente (especie, edad, estado, VetID).
+
+3.7. Recomendaciones de mejora del esquema (futuro inmediato)
+- Normalización parcial: separar catálogo de especies/edades a tablas de referencia.
+- Trazabilidad: tabla “auditoria_eventos” (usuario, timestamp, acción, entidad, id).
+- Persistencia de imágenes: almacenar rutas con checksum o copiar imágenes a un directorio gestionado por el sistema para evitar rutas rotas.

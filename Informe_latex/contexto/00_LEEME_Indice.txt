@@ -1,0 +1,20 @@
+PATITAS SEGURAS — Documentación modular (formato .txt)
+Fecha: 2025-12-18
+
+Este paquete contiene una explicación técnica y modular del proyecto de software “Patitas Seguras”, una aplicación de escritorio orientada a la adopción, búsqueda de mascotas extraviadas y mecanismos comunitarios de prevención del maltrato mediante listas negras y ranking de veterinarias.
+
+ARCHIVOS INCLUIDOS
+01_Contexto_y_Proposito.txt
+02_Arquitectura_y_Componentes.txt
+03_Modelo_de_Datos_y_Persistencia_SQLite.txt
+04_Modulo_UI_Navegacion_y_Experiencia_Usuario.txt
+05_Modulo_Adopcion_Catalogo_y_Filtrado.txt
+06_Modulo_Mascotas_Perdidas_y_Encontradas_Geolocalizacion.txt
+07_Modulo_Blacklist_Maltrato_y_Blacklist_Veterinarias.txt
+08_Modulo_Ranking_Veterinarias_y_Sistema_de_Votos.txt
+09_Seguridad_Integridad_y_Gestion_de_Errores.txt
+10_Plan_de_Evolucion_Pruebas_y_Despliegue.txt
+
+NOTA
+- El enfoque es modular: cada archivo describe un componente, su responsabilidad, su interacción con otros módulos y criterios de implementación.
+- Se asume una base tecnológica Python + Tkinter, mapas con TkinterMapView, tratamiento de imágenes con Pillow y persistencia con SQLite.

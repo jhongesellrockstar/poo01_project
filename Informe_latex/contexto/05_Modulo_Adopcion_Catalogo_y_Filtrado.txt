@@ -1,0 +1,62 @@
+05) MÓDULO DE ADOPCIÓN: CATÁLOGO VISUAL, FILTROS Y SOLICITUD
+
+5.1. Propósito del módulo
+El módulo de adopción convierte “publicaciones dispersas” en un catálogo navegable y filtrable. La meta es que el usuario identifique rápidamente:
+- La especie (perro, gato, etc.).
+- La etapa de vida (cachorro/adulto).
+- Rasgos básicos y estado de salud.
+- Energía o temperamento (si se modela como atributo).
+
+5.2. Modelo conceptual
+Entidades:
+- Mascota en adopción: {nombre, especie, raza, edad, color, fotoPath, salud/vacunas, energía, descripción}
+- Solicitud de adopción: {nombre_solicitante, teléfono, id_mascota, timestamp}
+
+En la versión actual, la solicitud se captura con un formulario simple (nombre y teléfono), y el sistema muestra una pantalla de agradecimiento/confirmación.
+
+5.3. Flujo de interacción
+1) El usuario entra a “Adopción”.
+2) Selecciona filtros:
+   - Botones por especie.
+   - Selector por edad (combobox o equivalente).
+3) La UI renderiza solo tarjetas que cumplen filtros.
+4) El usuario abre el detalle de una mascota y elige “Quiero adoptar”.
+5) Completa formulario y envía solicitud.
+6) Se confirma el envío con feedback visual.
+
+5.4. Algoritmo de filtrado (en tiempo real)
+El filtrado se basa en lógica condicional sobre una lista en memoria. Conceptualmente:
+- Para cada mascota en self.db_adopcion:
+   - Si (especie coincide) AND (edad coincide) entonces incluir en resultados.
+- Renderizar tarjetas con los resultados.
+
+Características:
+- Complejidad O(n) por refresco (aceptable en catálogos pequeños/medianos).
+- Respuesta inmediata (evita latencia de DB o red).
+- Fácil de extender (p. ej., agregar filtro por distrito, tamaño, esterilizado).
+
+5.5. Tarjetas y detalle
+Cada tarjeta prioriza información esencial:
+- Imagen (central para decisión).
+- Nombre + raza (si aplica).
+- Etiquetas (edad, especie, salud).
+- Botón “Ver detalle” o acción directa.
+
+La vista detalle agrega:
+- Descripción extendida.
+- Checklist de salud (vacunas, esterilización si aplica).
+- CTA (call-to-action) para iniciar solicitud.
+
+5.6. Registro de nuevas mascotas (si está habilitado)
+El formulario de registro integra controles avanzados:
+- Combobox para listas controladas.
+- Checkboxes para salud.
+- Botones de selección para energía.
+- Carga de imagen para que la tarjeta sea útil.
+
+Este conjunto de controles reduce errores de digitación y estandariza la data, lo cual es clave cuando se desea filtrar por atributos.
+
+5.7. Riesgos y controles recomendados
+- Duplicados: incorporar verificación por combinación (nombre+foto hash+timestamp).
+- Contacto: validar teléfono con patrón.
+- Privacidad: en una versión futura, ocultar datos personales y usar un mecanismo de mensajería interna o token de contacto.

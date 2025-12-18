@@ -1,0 +1,60 @@
+06) MÓDULO DE MASCOTAS PERDIDAS Y ENCONTRADAS: GEOLOCALIZACIÓN Y REPORTES
+
+6.1. Propósito del módulo
+Este módulo reduce la “ceguera geográfica” del proceso tradicional: en vez de describir un lugar ambiguo (“por tal parque”), el usuario marca un punto exacto en un mapa. Con ello transformo un reporte textual en un evento georreferenciado, lo que mejora:
+- Precisión de búsqueda (rutas y zonas).
+- Coordinación comunitaria (vecinos cercanos pueden actuar).
+- Calidad de evidencias (foto + coordenadas + descripción).
+
+6.2. Estados y casos de uso
+Estados principales:
+- Perdido: dueño reporta desaparición, adjunta foto y marca último punto de avistamiento.
+- Encontrado: ciudadano reporta hallazgo, adjunta foto y marca ubicación actual.
+
+Casos de uso:
+- Registrar reporte (perdido/encontrado).
+- Listar reportes con filtro por estado.
+- Ver detalle del reporte (incluye mapa con marcador).
+- Eliminar reporte (controlado, p. ej., cuando se resuelve).
+
+6.3. Captura de coordenadas (mapa interactivo)
+El formulario integra TkinterMapView para capturar latitud/longitud con un clic. Esto es una ventaja competitiva porque:
+- Evita que el usuario deba conocer coordenadas.
+- Estandariza el dato geográfico.
+- Permite mostrar la ubicación como parte del detalle del reporte.
+
+Implementación conceptual:
+- Evento on_click_map(lat, lon):
+   - actualizar campos latitud/longitud en el formulario
+   - colocar marcador visual en el mapa
+   - guardar coordenadas en el objeto del reporte
+
+6.4. Estructura de datos del reporte
+Campos sugeridos:
+- id (PK)
+- estado (“PERDIDO”/“ENCONTRADO”)
+- nombre/apodo
+- especie
+- raza
+- descripción (rasgos, collar, condición, etc.)
+- contacto (nombre/teléfono)
+- fotoPath (evidencia)
+- latitud, longitud
+- fecha_reporte
+
+6.5. Renderizado de tarjetas
+En el listado:
+- Se muestra foto + especie/raza + estado con etiqueta visual.
+- Botón “Ver detalle” abre vista con mapa y contacto.
+- Se recomienda incluir “distrito aproximado” calculado (si se integra reverse geocoding en el futuro).
+
+6.6. Integridad del ciclo “reporte → resolución”
+Cuando un reporte se resuelve, el sistema debería permitir:
+- Marcar como “RESUELTO” en lugar de eliminar (mantiene trazabilidad).
+- Notificar a usuarios cercanos (futuro, si hay sincronización).
+En la versión actual, existe eliminación controlada por id para limpiar el registro (útil para prototipo), pero en producción la recomendación es mantener estado histórico.
+
+6.7. Riesgos y mitigaciones
+- Coordenadas erróneas por clic accidental: pedir confirmación o permitir arrastrar marcador.
+- Evidencias falsas: incorporar verificación comunitaria (reportes cruzados) y mecanismo de moderación.
+- Exposición de datos: proteger el contacto y mostrarlo solo en detalle con advertencias.

@@ -1,0 +1,48 @@
+07) MÓDULO BLACKLIST: MALTRATO Y VETERINARIAS DENUNCIADAS
+
+7.1. Propósito del módulo
+Este módulo se diseñó como un mecanismo de “comunidad vigilante” que agrega una capa preventiva al sistema. La lógica es simple: si la comunidad registra incidentes (maltrato o malas prácticas), entonces los demás usuarios pueden:
+- Identificar puntos críticos en el mapa.
+- Evitar riesgos (veterinarias denunciadas).
+- Reconocer patrones (zonas con mayor incidencia).
+
+7.2. Blacklist de maltratadores (personas denunciadas)
+Entradas típicas del formulario:
+- Nombre o identificador del denunciado (si se conoce).
+- Descripción de rasgos físicos y hechos.
+- Evidencia fotográfica (ruta local).
+- Ubicación geográfica del incidente (lat/lon en mapa).
+
+Salida del módulo:
+- Listado en tarjetas (resumen + miniatura de evidencia).
+- Vista detalle: descripción completa + mapa con marcador.
+
+Recomendación técnica:
+- En producción, el “nombre” debería tratarse como dato sensible, con mecanismos de validación y moderación para evitar difamación o abuso del sistema.
+
+7.3. Blacklist de veterinarias denunciadas
+Entradas:
+- Nombre del establecimiento.
+- Motivo detallado de la denuncia.
+- Coordenadas (lat/lon).
+- Opcional: evidencia (foto del local, comprobante, etc.).
+
+Salida:
+- Listado y mapa: ubicar establecimientos denunciados como puntos críticos.
+- Vista detalle para revisar motivo y localización.
+
+7.4. Integración con el mapa
+La blacklist funciona mejor cuando se representa espacialmente:
+- En lista: prioriza lectura rápida.
+- En mapa: permite observar concentración por zonas (heatmap futuro).
+
+7.5. Gestión de riesgos (muy importante)
+El diseño de listas negras implica riesgos legales y éticos. Por ello, para madurez del sistema, propongo:
+- Política de uso: términos de reporte y advertencias sobre veracidad.
+- Evidencia mínima: no permitir reportes sin evidencia o sin descripción.
+- Moderación: rol “administrador” para validar o desactivar reportes.
+- Caducidad/estado: reportes con estado “PENDIENTE/VALIDADO/ARCHIVADO”.
+- Auditoría: registrar quién crea/edita y cuándo (tabla de auditoría).
+
+7.6. Beneficio sistémico
+Aun con controles básicos, este módulo aporta valor porque crea memoria comunitaria: los incidentes dejan de ser publicaciones efímeras y se convierten en registros con contexto, coordenadas y evidencia.

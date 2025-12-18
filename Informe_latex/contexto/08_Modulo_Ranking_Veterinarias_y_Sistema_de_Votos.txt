@@ -1,0 +1,41 @@
+08) MÓDULO RANKING DE VETERINARIAS: VOTOS, PROMEDIOS Y REPUTACIÓN
+
+8.1. Propósito del ranking
+El ranking implementa un “sistema de reputación” para orientar decisiones de cuidado animal. La reputación no solo es una lista ordenada; es un mecanismo de confianza comunitaria, donde:
+- La votación (estrellas) sintetiza experiencia.
+- El comentario agrega contexto cualitativo.
+- El ordenamiento facilita selección rápida.
+
+8.2. Entidades y relaciones
+- veterinarias: contiene los datos del establecimiento (nombre, dirección, teléfono, descripción, ubicación).
+- votos: contiene {VetID, estrellas, comentario, timestamp} y se vincula a una veterinaria.
+
+8.3. Flujo de interacción
+1) El usuario entra al ranking.
+2) Ve listado ordenado por calificación (estrellas).
+3) Abre detalle de una veterinaria para revisar información y ubicación.
+4) Emite un voto: selecciona estrellas y escribe comentario.
+5) El sistema registra el voto y recalcula el promedio (UPDATE en veterinarias o cálculo derivado).
+
+8.4. Lógica de ordenamiento
+La UI ordena veterinarias por su calificación promedio. En un diseño eficiente, se puede:
+- Mantener columna “promedio_estrellas” en veterinarias y actualizarla con cada voto.
+- O calcular “AVG(estrellas)” desde votos cuando se consulta (más costoso).
+
+Para prototipo, actualizar el promedio en cada insert_voto es una solución pragmática: ofrece ranking inmediato y evita recalcular cada vez.
+
+8.5. Captura de geolocalización de veterinarias
+El formulario de registro integra mapa para:
+- Marcar ubicación exacta por clic.
+- Guardar latitud/longitud.
+- Visualizar en el detalle (apoyo para llegar al lugar).
+
+8.6. Integridad del sistema de reputación
+Para evitar manipulación, en una versión madura agregaría:
+- Control de duplicidad de votos (por usuario, por periodo).
+- Registro de identidad (login mínimo) o token por dispositivo.
+- Detección de outliers (votos extremos repetitivos).
+- Moderación de comentarios (lenguaje ofensivo, spam).
+
+8.7. Beneficio directo
+El ranking reduce incertidumbre al elegir servicios veterinarios, especialmente cuando el usuario actúa bajo estrés (emergencias, rescates), y complementa el módulo de blacklist al ofrecer un contrapeso: no solo alerto lo negativo; también destaco lo positivo.

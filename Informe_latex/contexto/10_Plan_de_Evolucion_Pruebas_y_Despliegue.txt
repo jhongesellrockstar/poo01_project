@@ -1,0 +1,54 @@
+10) PLAN DE EVOLUCIÓN, PRUEBAS Y DESPLIEGUE
+
+10.1. Evolución funcional (roadmap propuesto)
+Fase 1 — Consolidación del prototipo (calidad interna)
+- Refactor: separar módulos en paquetes (ui/, domain/, data/, assets/).
+- Reutilización: crear componentes UI reutilizables (tarjeta, formulario, mapa).
+- Logging: archivo log con niveles (INFO/WARN/ERROR).
+- Validación: reglas robustas de inputs.
+
+Fase 2 — Confiabilidad comunitaria (moderación y control)
+- Sistema de roles: usuario, moderador, administrador.
+- Estados de reportes: PENDIENTE/VALIDADO/ARCHIVADO/RESUELTO.
+- Auditoría: tabla de eventos y acciones por usuario.
+- Reglas anti-spam: límites por día, verificación por dispositivo.
+
+Fase 3 — Sincronización y escalabilidad
+- Backend opcional: API REST para sincronizar (cuando el proyecto lo requiera).
+- Base de datos central: PostgreSQL u otro motor si crece volumen.
+- Sincronización híbrida: offline-first + sync cuando haya conexión.
+- Notificaciones: alertas por zona geográfica (geofencing).
+
+Fase 4 — Analítica y prevención
+- Mapas avanzados: clusters, heatmaps, zonas de riesgo.
+- Métricas: tiempos de resolución, densidad de incidentes, adopciones efectivas.
+- Modelos de recomendación: sugerir veterinarias mejor rankeadas por cercanía y reputación.
+
+10.2. Plan de pruebas (estrategia)
+A) Pruebas unitarias (automáticas)
+- data_layer_test: crear db temporal, insertar, leer, actualizar promedio, eliminar.
+- domain_test: filtros por especie/edad/estado, validadores de coordenadas.
+- utils_test: carga/resize de imágenes, path handling.
+
+B) Pruebas de integración
+- Flujo dashboard → módulo → registrar → volver → verificar persistencia en UI.
+- Flujo mapa: click → captura lat/lon → guardado → reabrir detalle y verificar marcador.
+
+C) Pruebas de usuario (manuales)
+- Checklist por pantalla: coherencia visual, mensajes claros, no bloqueos.
+- Pruebas de estrés ligero: 500 registros simulados y ver respuesta de scroll.
+
+10.3. Despliegue en escritorio (Windows / Linux)
+- Empaquetado: PyInstaller para generar ejecutable.
+- Assets: incluir imágenes, iconos, y carpeta de datos.
+- Ubicación de data.db: directorio de usuario (AppData en Windows) para permisos correctos.
+- Actualizaciones: versionado semántico (v1.0.0, v1.1.0) y migraciones de base de datos.
+
+10.4. Documentación mínima para terceros
+- Manual de instalación (dependencias, pip install -r requirements.txt).
+- Manual de operación (qué hace cada módulo, capturas, flujo).
+- Especificación de BD (tablas, campos, relaciones).
+- Guía de contribución (estilo de código, estructura del repositorio).
+
+10.5. Cierre
+El proyecto “Patitas Seguras” puede escalar desde un prototipo local de alto impacto hasta una plataforma comunitaria confiable, siempre que las siguientes prioridades se mantengan: integridad de datos, controles de abuso y trazabilidad de acciones.
